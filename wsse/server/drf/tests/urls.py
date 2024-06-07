@@ -5,10 +5,10 @@
 # Date: September 1st, 2016
 # Description: Test URL configuration.
 
-from django.conf.urls import include, url
+from django.urls import re_path
 
 from .views import TestView
 
 urlpatterns = [
-	url(r'^$', TestView.as_view(), name = 'api-test')
+	re_path(r'^$', TestView.as_view(), name = 'api-test')
 	]

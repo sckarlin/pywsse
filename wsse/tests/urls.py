@@ -5,9 +5,11 @@
 # Date: September 1st, 2016
 # Description: Test URL configuration.
 
-from django.conf.urls import include, url
+from django.urls import include
+from django.urls import re_path
+
 
 urlpatterns = [
-	url(r'^', include('wsse.server.django.tests.urls')),
-	url(r'^api/', include('wsse.server.drf.tests.urls')),
+	re_path(r'^', include('wsse.server.django.tests.urls')),
+	re_path(r'^api/', include('wsse.server.drf.tests.urls')),
 	]

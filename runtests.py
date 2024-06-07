@@ -4,7 +4,8 @@
 # Authors: Rushy Panchal, Naphat Sanguansin, Adam Libresco, Jérémie Lumbroso
 # Date: September 1st, 2016
 # Description: Test runner for Django application.
-# See: https://docs.djangoproject.com/en/1.9/topics/testing/advanced/#using-the-django-test-runner-to-test-reusable-applications
+# See: https://docs.djangoproject.com/en/1.9/topics/testing/advanced/
+#      #using-the-django-test-runner-to-test-reusable-applications
 
 import os
 import sys

@@ -6,9 +6,8 @@
 # Description: Database models for storing the nonces and user secrets.
 
 from django.utils import timezone
-
+from django.contrib.auth import get_user_model
 from django.db import models
-from django.contrib.auth.models import User
 
 from .... import settings, utils
 
@@ -37,7 +36,7 @@ class UserSecret(models.Model):
 	The `UserSecret` object connects every user to their secret key. The secret
 	key can be deleted to prevent access without affecting the user.
 	'''
-	user = models.OneToOneField(User, on_delete = models.CASCADE,
+	user = models.OneToOneField(get_user_model(), on_delete = models.CASCADE,
 		db_index = True)
 	secret = models.CharField(max_length = settings.SECRET_KEY_LENGTH,
 		default = _generate_secret, blank = True, null = False)
