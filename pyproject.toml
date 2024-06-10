@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pywsse"
+version = "0.1.6"
+description = "WSSE Authentication for various server and client backends."
+keywords = ["REST", "authentication", "wsse"]
+readme = "README.rst"
+requires-python = ">=3.8"
+license = { file = "LICENSE"}
+authors = [
+    { name = "Rushy Panchal", email = "rpanchal@princeton.edu"},
+]
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Middleware",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    # Specify explicit dependencies here:
+    "coreapi >=2.3.3",
+    "djangorestframework >=3.15.0",
+]
+
+[project.optional-dependencies]
+devci = [
+    # venv tools
+    "pip-tools",
+    # packaging tools
+    "packaging",
+    "twine",
+    # linting/testing tools
+    "pre-commit >=3.6.0",
+    "pytest >=7.4.3",
+    "pytest-django >=4.8.0",
+    "ruff >=0.1.7",
+    "tox >=4.15.1",
+    # test suite dependencies
+    "Django >=5.0.6",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/PrincetonUniversity/pywsse"
+"Bug Tracker" = "https://github.com/PrincetonUniversity/pywsse/issues"
+
+[tool.setuptools.packages.find]
+namespaces = false
+include = ["wsse*"]
