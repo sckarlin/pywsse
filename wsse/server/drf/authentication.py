@@ -6,7 +6,7 @@
 # Description: Django REST Framework Authentication backend.
 
 try:
-	from django.contrib.auth.models import User
+	from django.contrib.auth import get_user_model
 	from rest_framework import authentication
 	from rest_framework.exceptions import AuthenticationFailed
 except ImportError:
@@ -15,14 +15,15 @@ except ImportError:
 from ... import utils, exceptions, settings
 from ..django.wsse.models import UserSecret
 
+
 class WSSEAuthentication(authentication.BaseAuthentication):
-	'''
+	"""
 	The `WSSEAuthentication` backend provides WSSE authentication functionality
-	to DRF. It can applied as an authentication backend or used on a
+	to DRF.  It can be applied as an authentication backend or used on a
 	per-view basis.
-	'''
+	"""
 	def _get_password(self, username):
-		'''
+		"""
 		Get the password for a given username.
 
 		:param username: username to get password for
@@ -32,16 +33,16 @@ class WSSEAuthentication(authentication.BaseAuthentication):
 		:rtype: str
 
 		:raises KeyError: user not found
-		'''
+		"""
 		try:
-			user_secret = UserSecret.objects.get(user__username = username)
+			user_secret = UserSecret.objects.get(user__username=username)
 		except UserSecret.DoesNotExist:
 			raise KeyError('User not found')
 	
 		return user_secret.secret
 
 	def authenticate(self, request):
-		'''
+		"""
 		Authenticate a request.
 
 		:param request: request to authenticate
@@ -52,7 +53,7 @@ class WSSEAuthentication(authentication.BaseAuthentication):
 
 		:raises rest_framework.exceptions.AuthenticationFailed:
 			if authentication fails
-		'''
+		"""
 		header_name = utils._django_header(settings.REQUEST_HEADER)
 		wsse_header = request.META.get(header_name)
 		if not wsse_header:
@@ -68,15 +69,15 @@ class WSSEAuthentication(authentication.BaseAuthentication):
 		# already done in _get_password.
 		if not username:
 			raise AuthenticationFailed('User could not be authenticated')
-
-		user = User.objects.get(username = username)
-		return (user, None)
+		user_model = get_user_model()
+		user = user_model.objects.get(username=username)
+		return user, None
 
 	def authenticate_header(self, request):
-		'''
+		"""
 		Return the authentication header.
 
 		:param request: incoming request
 		:type request: rest_framework.request.Request
-		'''
+		"""
 		return 'WSSE realm="", profile="UsernameToken"'
